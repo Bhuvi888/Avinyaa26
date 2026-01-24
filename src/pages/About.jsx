@@ -1,126 +1,313 @@
 /**
  * About Page Component
- *
- * Information about the organization, team, and mission.
- *
- * @component
- * @example
- * <About />
- *
- * @todo Add team members section
- * @todo Add mission/vision statements
- * @todo Add company history timeline
+ * Antigravity-style bubbles + gradient + infinite carousel + OGL Circular Gallery
  */
+import { useEffect, useRef, useState, useMemo } from "react";
+import { MdEmail } from "react-icons/md";
+import { FaLinkedin } from "react-icons/fa";
+import CircularGallery from "../components/CircularGallery";
+import { useOutletContext } from "react-router-dom";
+import LightRays from "../components/LightRays";
+
+// Member Photos
+import bhuvaneshImg from '../assets/memebers photo/bhuvanesh .jpeg';
+import narenImg from '../assets/memebers photo/naren.jpeg';
+import sanjeevImg from '../assets/memebers photo/sanjeev.jpeg';
+import shajinImg from '../assets/memebers photo/shajin.jpeg';
+import vamanImg from '../assets/memebers photo/vaman.jpeg';
+import girijaImg from '../assets/memebers photo/girija.jpeg';
+import hasikaImg from '../assets/memebers photo/hasika.jpeg';
+import ssrutheegaImg from '../assets/memebers photo/Shrutheega.jpeg';
+import kumariImg from '../assets/memebers photo/kumari.jpeg';
+import burhanImg from '../assets/memebers photo/burhan.jpeg';
+import mahadiyaImg from '../assets/memebers photo/mahadhiya.jpeg';
+import deepakImg from '../assets/memebers photo/deepak.jpeg';
+import dharmaduraiImg from '../assets/memebers photo/dharmadurai.jpeg';
+import ezhumalaiImg from '../assets/memebers photo/ezhumalai.jpeg';
+import jothishwaranImg from '../assets/memebers photo/jothishwaran.jpeg';
+import lakshmiImg from '../assets/memebers photo/lakshmi .jpeg';
+import kamalikaImg from '../assets/memebers photo/kamalika.jpeg';
+
 const About = () => {
-  // Sample team data - replace with actual data
-  const team = [
-    { id: 1, name: "Team Member 1", role: "Role Title", image: null },
-    { id: 2, name: "Team Member 2", role: "Role Title", image: null },
-    { id: 3, name: "Team Member 3", role: "Role Title", image: null },
-    { id: 4, name: "Team Member 4", role: "Role Title", image: null },
-  ];
+  const canvasRef = useRef(null);
+  const [activeDev, setActiveDev] = useState(null);
+  const { isDark } = useOutletContext() || { isDark: true };
+
+  // Coordinators Data
+  const coordinators = useMemo(() => [
+    { id: 1, name: "Kumari Selvi C", role: "President", image: kumariImg, gmail: "selvi16122005@gmail.com", linkedin: "http://www.linkedin.com/in/kumari-selvi-2314032b8" },
+    { id: 2, name: "Shajin S P", role: "Vice President", image: shajinImg, gmail: "shajinsree03@gmail.com", linkedin: "http://www.linkedin.com/in/shajinaiml" },
+    { id: 3, name: "Mohammed Burhan K", role: "Secretary", image: burhanImg, gmail: "23204030@rmd.ac.in", linkedin: "https://www.linkedin.com/in/mohammed-burhan-61a710285" },
+    { id: 4, name: "Mahadiya Maheen K F", role: "Joint Secretary", image: mahadiyaImg, gmail: "23204027@rmd.ac.in", linkedin: "https://www.linkedin.com/in/mahadiya-maheen-k-f-b236b629a/" },
+    { id: 5, name: "Jothishwaran", role: "Office Barrier", image: jothishwaranImg, gmail: "23204061@rmd.ac.in", linkedin: "https://www.linkedin.com/in/jothishwaran-s-914406314/" },
+    { id: 6, name: "Lakshmi Shri", role: "Office Barrier", image: lakshmiImg, gmail: "23204026@rmd.ac.in", linkedin: "https://www.linkedin.com/in/lakshmi-shri-41705a2b0/" },
+    { id: 7, name: "Kamalika", role: "Office Barrier", image: kamalikaImg, gmail: "23204020@rmd.ac.in", linkedin: "https://www.linkedin.com/in/kamalika-m01/" },
+  ], []);
+  // Developers Data for Circular Gallery
+  const developers = useMemo(() => [
+    { id: 1, name: "Bhuvanesh Kumar S", image: bhuvaneshImg, gmail: "bhuvaneshkumar433@gmail.com", linkedin: "https://www.linkedin.com/in/bhuvaneshkumar08/" },
+    { id: 2, name: "Dharmadurai K", image: dharmaduraiImg, gmail: "dharmaduraik04@gmail.com", linkedin: "https://in.linkedin.com/in/dharmadurai-k-39a9a2293" },
+    { id: 3, name: "Girija", image: girijaImg, gmail: "girijasd904@gmail.com", linkedin: "https://www.linkedin.com/in/girija06/" },
+    { id: 4, name: "Hasika", image: hasikaImg, gmail: "hasika2014raj@gmail.com", linkedin: "www.linkedin.com/in/hasika-rajendran-16083a2a7" },
+    { id: 5, name: "Naren", image: narenImg, gmail: "23204035@rmd.ac.in", linkedin: "https://www.linkedin.com/in/om-naren-d-68a2502b5/" },
+    { id: 6, name: "Sanjeev", image: sanjeevImg, gmail: "23204045@rmd.ac.in", linkedin: "https://www.linkedin.com/in/sanjeevrajg2312/" },
+    { id: 7, name: "Shajin", image: shajinImg, gmail: "23204047@rmd.ac.in", linkedin: "https://www.linkedin.com/in/shajinaiml/" },
+    { id: 8, name: "Ssrutheega", image: ssrutheegaImg, gmail: "23204052@rmd.ac.in", linkedin: "https://www.linkedin.com/in/ssrutheega-g-i/" },
+    { id: 9, name: "Deepak", image: deepakImg, gmail: "23204056@rmd.ac.in", linkedin: "https://www.linkedin.com/in/vijji-deepak-6b0a0b312/" },
+    { id: 10, name: "Vaman", image: vamanImg, gmail: "23204062@rmd.ac.in", linkedin: "https://www.linkedin.com/in/vaman-prabakar-32b6072a1/" },
+  ], []);
+
+  const galleryItems = useMemo(() => developers.map(d => ({
+    ...d,
+    text: d.name, // Text for the WebGL plane
+    image: d.image
+  })), [developers]);
+
+  // === RISING PARTICLES ===
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    let w, h;
+    let particles = [];
+
+    const resize = () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    // Initial Particles
+    const PARTICLE_COUNT = 100;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * w;
+        this.y = Math.random() * h + h; // Start below or randomly
+        this.size = Math.random() * 2 + 0.5; // Small size
+        this.speedY = Math.random() * 1 + 0.2; // Slow rising
+        this.opacity = Math.random() * 0.5 + 0.1;
+        this.color = `rgba(225, 29, 72, ${this.opacity})`; // Rose/Red tint
+      }
+      update() {
+        this.y -= this.speedY;
+        if (this.y < -10) {
+          this.y = h + 10;
+          this.x = Math.random() * w;
+        }
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    const init = () => {
+      particles = [];
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push(new Particle());
+        // Randomize starting Y for initial load
+        particles[i].y = Math.random() * h;
+      }
+    };
+    init();
+
+    let frameId;
+    const animate = () => {
+      // Clear with Fade effect for trails (optional, but keep clean for now)
+      ctx.fillStyle = isDark ? '#2a0a10' : '#ffffff'; // Background color
+      // Actually, let's just clearRect to keep transparent for CSS bg
+      ctx.clearRect(0, 0, w, h);
+
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      frameId = requestAnimationFrame(animate);
+    };
+    animate();
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener("resize", resize);
+    };
+  }, [isDark]);
+
 
   return (
-    <div className="min-h-screen">
-      {/* Page Header */}
-      <section className="bg-gradient-to-br from-purple-600 to-indigo-700 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            About Us
-          </h1>
-          <p className="text-lg text-purple-100 max-w-2xl mx-auto">
-            Learn more about our journey, our mission, and the people behind
-            Avinyaa.
-          </p>
+    <div className={`relative isolate min-h-screen font-body overflow-hidden transition-colors duration-700 ${isDark ? 'bg-[#2a0a10] text-white' : 'bg-gray-100 text-gray-900'}`}>
+      <canvas ref={canvasRef} className="fixed inset-0 -z-20 pointer-events-none" />
+
+      {/* LightRays Effect for Background Atmosphere */}
+      <div className="absolute inset-0 z-[1] opacity-50 pointer-events-none">
+        <LightRays
+          raysColor={isDark ? "#ff0000" : "#ff99aa"}
+          raysSpeed={0.2}
+          lightSpread={2.0}
+          rayLength={0.9}
+          mouseInfluence={0.5}
+          noiseAmount={0.04}
+        />
+      </div>
+
+
+      {/* HERO SECTION - REFINED */}
+      <section className="relative pt-32 pb-20 px-6 text-center z-10 min-h-[50vh] flex flex-col items-center justify-center">
+        <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-8 backdrop-blur-md ${isDark ? 'border-rose-400/30 bg-rose-900/30 shadow-[0_0_20px_rgba(225,29,72,0.2)]' : 'border-rose-200 bg-white/50 shadow-sm'}`}>
+          <span className={`text-xs font-bold tracking-[0.25em] uppercase ${isDark ? 'text-rose-100' : 'text-rose-900'}`}>The Team</span>
         </div>
+
+        <h1 className="text-5xl md:text-8xl font-black tracking-tight mb-8 leading-[1.0] font-display">
+          <span className={`block ${isDark ? 'text-white' : 'text-gray-900'}`}>BEHIND</span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-red-500 to-rose-400 drop-shadow-md">
+            AVINYAA
+          </span>
+        </h1>
+
+        <p className={`max-w-2xl mx-auto text-lg font-medium leading-relaxed ${isDark ? 'text-rose-100/90' : 'text-gray-600'}`}>
+          The architects of innovation. Planning, building, and launching experiences that inspire.
+        </p>
       </section>
 
-      {/* Mission Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Image Placeholder */}
-            <div className="aspect-video bg-gradient-to-br from-indigo-100 to-purple-100 rounded-2xl flex items-center justify-center">
-              <span className="text-6xl">🚀</span>
-            </div>
+      {/* CAROUSEL FOR COORDINATORS */}
+      <section className="relative z-10 space-y-24 pb-20">
+        <InfiniteCarousel title="Event Coordinators" data={coordinators} isDark={isDark} />
 
-            {/* Content */}
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                Our Mission
-              </h2>
-              <p className="text-gray-600 mb-4">
-                Add your mission statement here. Describe what drives your
-                organization and the impact you aim to create.
-              </p>
-              <p className="text-gray-600 mb-6">
-                Include additional context about your goals, values, and what
-                makes your organization unique.
-              </p>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 bg-indigo-50 rounded-xl">
-                  <div className="text-2xl font-bold text-indigo-600">100+</div>
-                  <div className="text-sm text-gray-600">Stat label</div>
-                </div>
-                <div className="p-4 bg-purple-50 rounded-xl">
-                  <div className="text-2xl font-bold text-purple-600">50+</div>
-                  <div className="text-sm text-gray-600">Stat label</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Values Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            Our Values
+        {/* CIRCULAR GALLERY FOR DEVELOPERS */}
+        <div className="relative">
+          <h2 className="text-3xl md:text-5xl font-display font-bold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-rose-100 to-rose-400 drop-shadow-md">
+            The Developers
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {["Innovation", "Integrity", "Impact"].map((value, index) => (
-              <div
-                key={index}
-                className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 text-center"
-              >
-                <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl text-white">
-                    {["💡", "🤝", "🎯"][index]}
-                  </span>
+
+          <div className="h-[600px] w-full relative">
+            {/* Circular Gallery */}
+            <CircularGallery
+              items={galleryItems}
+              bend={3}
+              textColor={isDark ? "#fb7185" : "#be123c"}
+              borderRadius={0.05}
+              onHoverItem={setActiveDev}
+            />
+
+            {/* Developer Info Overlay - Appears when looking at a dev (centered) */}
+            <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 w-full max-w-sm px-4 pointer-events-none z-30">
+              {activeDev && (
+                <div className={`p-6 rounded-2xl border backdrop-blur-md pointer-events-auto transition-all duration-300 animate-fade-in-up hover:scale-105 ${isDark ? 'bg-[#120205]/80 border-rose-500/30 hover:border-rose-400 hover:shadow-[0_0_30px_rgba(244,63,94,0.2)]' : 'bg-white/80 border-rose-200 shadow-xl'}`}>
+                  <h3 className={`text-2xl font-display font-bold text-center mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>{activeDev.name}</h3>
+                  <div className="w-12 h-0.5 bg-rose-500 mx-auto mb-3"></div>
+                  <p className={`mb-5 text-center text-sm font-bold tracking-widest uppercase ${isDark ? 'text-rose-200/80' : 'text-rose-700'}`}>Full Stack Developer</p>
+
+                  <div className="flex gap-8 justify-center">
+                    {activeDev.gmail && (
+                      <a href={`mailto:${activeDev.gmail}`} className={`text-xl hover:scale-110 transition-all duration-300 p-2 rounded-full ${isDark ? 'text-rose-400 hover:text-white bg-white/5' : 'text-rose-600 hover:text-rose-800 bg-rose-50'}`}>
+                        <MdEmail />
+                      </a>
+                    )}
+                    {activeDev.linkedin && (
+                      <a href={activeDev.linkedin} target="_blank" rel="noopener noreferrer" className={`text-xl hover:scale-110 transition-all duration-300 p-2 rounded-full ${isDark ? 'text-rose-400 hover:text-white bg-white/5' : 'text-rose-600 hover:text-rose-800 bg-rose-50'}`}>
+                        <FaLinkedin />
+                      </a>
+                    )}
+
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  {value}
-                </h3>
-                <p className="text-gray-600">
-                  Add description about this value and how it guides your work.
-                </p>
-              </div>
-            ))}
+              )}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            Meet Our Team
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {team.map((member) => (
-              <div key={member.id} className="text-center">
-                {/* Avatar Placeholder */}
-                <div className="w-24 h-24 mx-auto bg-gradient-to-br from-indigo-100 to-purple-100 rounded-full flex items-center justify-center mb-4">
-                  <span className="text-3xl">👤</span>
-                </div>
-                <h3 className="font-semibold text-gray-900">{member.name}</h3>
-                <p className="text-sm text-gray-600">{member.role}</p>
+    </div>
+  );
+};
+
+// Original InfiniteCarousel component - Styled to match Events Page & Theme
+const InfiniteCarousel = ({ title, data, isDark }) => {
+  const carouselRef = useRef(null);
+  const speed = 0.5;
+
+  // Auto-scroll effect
+  useEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    // Start in the middle to allow left scrolling
+    // We used setTimeout to ensure layout is calculated
+    setTimeout(() => {
+      if (carousel) carousel.scrollLeft = carousel.scrollWidth / 2;
+    }, 100);
+
+    let animationId;
+
+    const animate = () => {
+      if (!carousel) return;
+      // Scroll to the left (content moves right)
+      carousel.scrollLeft -= speed;
+
+      // Reset when reaching start
+      if (carousel.scrollLeft <= 0) {
+        carousel.scrollLeft = carousel.scrollWidth / 2;
+      }
+      animationId = requestAnimationFrame(animate);
+    };
+    animate();
+
+    return () => cancelAnimationFrame(animationId);
+  }, []);
+
+  // Duplicate data for infinite loop effect
+  const displayData = [...data, ...data];
+
+  return (
+    <div className="py-10 overflow-hidden relative group">
+      <h2 className="text-3xl md:text-5xl font-display font-bold text-center mb-12 text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-rose-100 to-rose-400 drop-shadow-md">
+        {title}
+      </h2>
+
+      {/* Fade Gradients on sides that match background */}
+      <div className={`absolute left-0 top-0 bottom-0 w-20 z-20 pointer-events-none bg-gradient-to-r ${isDark ? 'from-[#2a0a10] to-transparent' : 'from-gray-100 to-transparent'}`}></div>
+      <div className={`absolute right-0 top-0 bottom-0 w-20 z-20 pointer-events-none bg-gradient-to-l ${isDark ? 'from-[#2a0a10] to-transparent' : 'from-gray-100 to-transparent'}`}></div>
+
+      <div
+        ref={carouselRef}
+        className="overflow-hidden relative w-full"
+        onMouseEnter={() => { if (carouselRef.current) carouselRef.current.style.scrollBehavior = 'auto'; }}
+      >
+        <div
+          className="flex gap-8 px-4"
+          style={{ width: "max-content" }}
+        >
+          {displayData.map((p, i) => (
+            <div
+              key={i}
+              className={`min-w-[300px] h-[400px] rounded-2xl border transition-all duration-500 hover:-translate-y-2 cursor-pointer group/card relative overflow-hidden ${isDark
+                ? 'bg-[#120205] border-rose-500/30 shadow-[0_0_15px_rgba(225,29,72,0.2)] hover:shadow-[0_0_30px_rgba(225,29,72,0.4)] hover:border-rose-400'
+                : 'bg-white border-rose-200 shadow-[0_0_15px_rgba(225,29,72,0.1)] hover:shadow-xl'}`}
+            >
+              {/* Image */}
+              <div className="h-[75%] w-full overflow-hidden relative">
+                <img src={p.image} alt={p.name} className="w-full h-full object-cover object-top transition-transform duration-700 group-hover/card:scale-110" />
+                <div className={`absolute inset-0 bg-gradient-to-t opacity-80 ${isDark ? 'from-[#120205] to-transparent' : 'from-white to-transparent'}`} />
               </div>
-            ))}
-          </div>
+
+              {/* Content */}
+              <div className="absolute bottom-0 inset-x-0 p-5 text-center">
+                <h3 className={`text-xl font-display font-bold mb-1 group-hover/card:text-rose-500 transition-colors ${isDark ? 'text-white' : 'text-gray-900'}`}>{p.name}</h3>
+                <p className={`text-sm font-display font-bold tracking-widest uppercase mb-3 ${isDark ? 'text-rose-200/60' : 'text-rose-600/70'}`}>{p.role}</p>
+
+                {/* Socials - Slide Up on Hover */}
+                <div className="flex justify-center gap-4 opacity-0 transform translate-y-4 group-hover/card:opacity-100 group-hover/card:translate-y-0 transition-all duration-300">
+                  {p.gmail && <a href={`mailto:${p.gmail}`} className={`${isDark ? 'text-white hover:text-rose-400' : 'text-gray-700 hover:text-rose-600'}`}><MdEmail size={20} /></a>}
+                  {p.linkedin && <a href={p.linkedin} target="_blank" rel="noopener noreferrer" className={`${isDark ? 'text-white hover:text-rose-400' : 'text-gray-700 hover:text-rose-600'}`}><FaLinkedin size={20} /></a>}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-      </section>
+      </div>
     </div>
   );
 };

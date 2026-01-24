@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "../components/layout";
-import { Home, Events, About, Contact } from "../pages";
+import { Home, Events, About, Contact, BusRoutes } from "../pages";
+import Gallery from "../pages/Gallery"; // Added Gallery import
 
 /**
  * Application Router Configuration
@@ -26,12 +27,20 @@ const router = createBrowserRouter([
         element: <Events />,
       },
       {
+        path: "gallery", // New route
+        element: <Gallery />,
+      },
+      {
         path: "about",
         element: <About />,
       },
       {
         path: "contact",
         element: <Contact />,
+      },
+      {
+        path: "bus-routes",
+        element: <BusRoutes />,
       },
     ],
   },
