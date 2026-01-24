@@ -111,6 +111,7 @@ const About = () => {
       <AnimatedSection title="Developers" data={developers} />
 
       {/* PAGE CSS */}
+      
       <style>{`
         @keyframes scroll-linear {
           from { transform: translateX(0); }
