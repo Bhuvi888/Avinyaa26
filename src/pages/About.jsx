@@ -28,6 +28,8 @@ import jothishwaranImg from '../assets/memebers photo/jothishwaran.jpeg';
 import lakshmiImg from '../assets/memebers photo/lakshmi .jpeg';
 import kamalikaImg from '../assets/memebers photo/kamalika.jpeg';
 
+import treasurerImg from '../assets/memebers photo/treasurer.jpg';
+
 const About = () => {
   const canvasRef = useRef(null);
   const [activeDev, setActiveDev] = useState(null);
@@ -39,9 +41,10 @@ const About = () => {
     { id: 2, name: "Shajin S P", role: "Vice President", image: shajinImg, gmail: "shajinsree03@gmail.com", linkedin: "http://www.linkedin.com/in/shajinaiml" },
     { id: 3, name: "Mohammed Burhan K", role: "Secretary", image: burhanImg, gmail: "23204030@rmd.ac.in", linkedin: "https://www.linkedin.com/in/mohammed-burhan-61a710285" },
     { id: 4, name: "Mahadiya Maheen K F", role: "Joint Secretary", image: mahadiyaImg, gmail: "23204027@rmd.ac.in", linkedin: "https://www.linkedin.com/in/mahadiya-maheen-k-f-b236b629a/" },
-    { id: 5, name: "Jothishwaran", role: "Office Barrier", image: jothishwaranImg, gmail: "23204061@rmd.ac.in", linkedin: "https://www.linkedin.com/in/jothishwaran-s-914406314/" },
-    { id: 6, name: "Lakshmi Shri", role: "Office Barrier", image: lakshmiImg, gmail: "23204026@rmd.ac.in", linkedin: "https://www.linkedin.com/in/lakshmi-shri-41705a2b0/" },
-    { id: 7, name: "Kamalika", role: "Office Barrier", image: kamalikaImg, gmail: "23204020@rmd.ac.in", linkedin: "https://www.linkedin.com/in/kamalika-m01/" },
+    { id: 5, name: "Yuvaraj R", role: "Treasurer", image: treasurerImg, gmail: "", linkedin: "" },
+    { id: 6, name: "Jothishwaran", role: "Office Barrier", image: jothishwaranImg, gmail: "23204061@rmd.ac.in", linkedin: "https://www.linkedin.com/in/jothishwaran-s-914406314/" },
+    { id: 7, name: "Lakshmi Shri", role: "Office Barrier", image: lakshmiImg, gmail: "23204026@rmd.ac.in", linkedin: "https://www.linkedin.com/in/lakshmi-shri-41705a2b0/" },
+    { id: 8, name: "Kamalika", role: "Office Barrier", image: kamalikaImg, gmail: "23204020@rmd.ac.in", linkedin: "https://www.linkedin.com/in/kamalika-m01/" },
   ], []);
   // Developers Data for Circular Gallery
   const developers = useMemo(() => [
@@ -51,7 +54,7 @@ const About = () => {
     { id: 4, name: "Hasika", image: hasikaImg, gmail: "hasika2014raj@gmail.com", linkedin: "www.linkedin.com/in/hasika-rajendran-16083a2a7" },
     { id: 5, name: "Naren", image: narenImg, gmail: "23204035@rmd.ac.in", linkedin: "https://www.linkedin.com/in/om-naren-d-68a2502b5/" },
     { id: 6, name: "Sanjeev", image: sanjeevImg, gmail: "23204045@rmd.ac.in", linkedin: "https://www.linkedin.com/in/sanjeevrajg2312/" },
-    { id: 7, name: "Shajin", image: shajinImg, gmail: "23204047@rmd.ac.in", linkedin: "https://www.linkedin.com/in/shajinaiml/" },
+    { id: 7, name: "Shajin", image: shajinImg, gmail: "shajinsree03@gmail.com", linkedin: "https://www.linkedin.com/in/shajinaiml/" },
     { id: 8, name: "Ssrutheega", image: ssrutheegaImg, gmail: "23204052@rmd.ac.in", linkedin: "https://www.linkedin.com/in/ssrutheega-g-i/" },
     { id: 9, name: "Deepak", image: deepakImg, gmail: "23204056@rmd.ac.in", linkedin: "https://www.linkedin.com/in/vijji-deepak-6b0a0b312/" },
     { id: 10, name: "Vaman", image: vamanImg, gmail: "23204062@rmd.ac.in", linkedin: "https://www.linkedin.com/in/vaman-prabakar-32b6072a1/" },
@@ -79,7 +82,7 @@ const About = () => {
     window.addEventListener("resize", resize);
 
     // Initial Particles
-    const PARTICLE_COUNT = 100;
+    const PARTICLE_COUNT = 40;
 
     class Particle {
       constructor() {
@@ -134,15 +137,15 @@ const About = () => {
       cancelAnimationFrame(frameId);
       window.removeEventListener("resize", resize);
     };
-  }, [isDark]);
+  }, []); // Removed isDark dependency to prevent re-init on theme switch
 
 
   return (
     <div className={`relative isolate min-h-screen font-body overflow-hidden transition-colors duration-700 ${isDark ? 'bg-[#2a0a10] text-white' : 'bg-gray-100 text-gray-900'}`}>
       <canvas ref={canvasRef} className="fixed inset-0 -z-20 pointer-events-none" />
 
-      {/* LightRays Effect for Background Atmosphere */}
-      <div className="absolute inset-0 z-[1] opacity-50 pointer-events-none">
+      {/* LightRays Effect Removed for Performance */}
+      {/* <div className="absolute inset-0 z-[1] opacity-50 pointer-events-none">
         <LightRays
           raysColor={isDark ? "#ff0000" : "#ff99aa"}
           raysSpeed={0.2}
@@ -151,7 +154,7 @@ const About = () => {
           mouseInfluence={0.5}
           noiseAmount={0.04}
         />
-      </div>
+      </div> */}
 
 
       {/* HERO SECTION - REFINED */}
@@ -229,34 +232,8 @@ const InfiniteCarousel = ({ title, data, isDark }) => {
   const carouselRef = useRef(null);
   const speed = 0.5;
 
-  // Auto-scroll effect
-  useEffect(() => {
-    const carousel = carouselRef.current;
-    if (!carousel) return;
-
-    // Start in the middle to allow left scrolling
-    // We used setTimeout to ensure layout is calculated
-    setTimeout(() => {
-      if (carousel) carousel.scrollLeft = carousel.scrollWidth / 2;
-    }, 100);
-
-    let animationId;
-
-    const animate = () => {
-      if (!carousel) return;
-      // Scroll to the left (content moves right)
-      carousel.scrollLeft -= speed;
-
-      // Reset when reaching start
-      if (carousel.scrollLeft <= 0) {
-        carousel.scrollLeft = carousel.scrollWidth / 2;
-      }
-      animationId = requestAnimationFrame(animate);
-    };
-    animate();
-
-    return () => cancelAnimationFrame(animationId);
-  }, []);
+  // Data doubling is sufficient for CSS infinite scroll
+  // No JS scroll logic needed
 
   // Duplicate data for infinite loop effect
   const displayData = [...data, ...data];
@@ -267,30 +244,29 @@ const InfiniteCarousel = ({ title, data, isDark }) => {
         {title}
       </h2>
 
-      {/* Fade Gradients on sides that match background */}
+      {/* Fade Gradients */}
       <div className={`absolute left-0 top-0 bottom-0 w-20 z-20 pointer-events-none bg-gradient-to-r ${isDark ? 'from-[#2a0a10] to-transparent' : 'from-gray-100 to-transparent'}`}></div>
       <div className={`absolute right-0 top-0 bottom-0 w-20 z-20 pointer-events-none bg-gradient-to-l ${isDark ? 'from-[#2a0a10] to-transparent' : 'from-gray-100 to-transparent'}`}></div>
 
       <div
         ref={carouselRef}
-        className="overflow-hidden relative w-full"
-        onMouseEnter={() => { if (carouselRef.current) carouselRef.current.style.scrollBehavior = 'auto'; }}
+        className="overflow-hidden relative w-full flex"
       >
         <div
-          className="flex gap-8 px-4"
+          className="flex gap-8 px-4 animate-scroll"
           style={{ width: "max-content" }}
         >
           {displayData.map((p, i) => (
             <div
               key={i}
-              className={`min-w-[300px] h-[400px] rounded-2xl border transition-all duration-500 hover:-translate-y-2 cursor-pointer group/card relative overflow-hidden ${isDark
+              className={`min-w-[300px] h-[400px] rounded-2xl border transition-all duration-500 hover:-translate-y-2 cursor-pointer group/card relative overflow-hidden shrink-0 ${isDark
                 ? 'bg-[#120205] border-rose-500/30 shadow-[0_0_15px_rgba(225,29,72,0.2)] hover:shadow-[0_0_30px_rgba(225,29,72,0.4)] hover:border-rose-400'
                 : 'bg-white border-rose-200 shadow-[0_0_15px_rgba(225,29,72,0.1)] hover:shadow-xl'}`}
             >
               {/* Image */}
               <div className="h-[75%] w-full overflow-hidden relative">
-                <img src={p.image} alt={p.name} className="w-full h-full object-cover object-top transition-transform duration-700 group-hover/card:scale-110" />
-                <div className={`absolute inset-0 bg-gradient-to-t opacity-80 ${isDark ? 'from-[#120205] to-transparent' : 'from-white to-transparent'}`} />
+                <img src={p.image} alt={p.name} loading="lazy" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover/card:scale-110" />
+                <div className={`absolute inset-0 bg-gradient-to-t ${isDark ? 'opacity-40 from-[#120205] to-transparent' : 'opacity-0'}`} />
               </div>
 
               {/* Content */}
@@ -298,7 +274,7 @@ const InfiniteCarousel = ({ title, data, isDark }) => {
                 <h3 className={`text-xl font-display font-bold mb-1 group-hover/card:text-rose-500 transition-colors ${isDark ? 'text-white' : 'text-gray-900'}`}>{p.name}</h3>
                 <p className={`text-sm font-display font-bold tracking-widest uppercase mb-3 ${isDark ? 'text-rose-200/60' : 'text-rose-600/70'}`}>{p.role}</p>
 
-                {/* Socials - Slide Up on Hover */}
+                {/* Socials */}
                 <div className="flex justify-center gap-4 opacity-0 transform translate-y-4 group-hover/card:opacity-100 group-hover/card:translate-y-0 transition-all duration-300">
                   {p.gmail && <a href={`mailto:${p.gmail}`} className={`${isDark ? 'text-white hover:text-rose-400' : 'text-gray-700 hover:text-rose-600'}`}><MdEmail size={20} /></a>}
                   {p.linkedin && <a href={p.linkedin} target="_blank" rel="noopener noreferrer" className={`${isDark ? 'text-white hover:text-rose-400' : 'text-gray-700 hover:text-rose-600'}`}><FaLinkedin size={20} /></a>}

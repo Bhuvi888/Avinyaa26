@@ -49,8 +49,8 @@ const Layout = () => {
       {showIntro && <IntroVideo onComplete={() => setShowIntro(false)} />}
 
       <div className={`min-h-screen flex flex-col transition-colors duration-300 ${isDark ? 'bg-cosmic-void' : 'bg-gray-100'}`}>
-        {/* Global CRT Overlay */}
-        <CRTOverlay isScrolled={scrolled} isDark={isDark} />
+        {/* Global CRT Overlay - ONLY ON HOME */}
+        {location.pathname === '/' && <CRTOverlay isScrolled={scrolled} isDark={isDark} />}
 
         {/* Global Header with Theme Controls */}
         <Header isDark={isDark} toggleTheme={toggleTheme} />

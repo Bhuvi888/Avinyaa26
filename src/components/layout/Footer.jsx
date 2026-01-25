@@ -18,7 +18,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gradient-to-br from-black via-red-950 to-black">
+    <footer className="relative z-50 bg-gradient-to-br from-black via-red-950 to-black">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-6 gap-x-20 gap-y-12 items-start">
           {/* Brand Section */}

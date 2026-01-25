@@ -386,12 +386,7 @@ class App {
         this.onCheck();
         // Resume auto scroll handled in mouseenter/leave or can just stay stopped until mouse leave
     }
-    onWheel(e) {
-        this.autoScrollInfo.isScrolling = false;
-        const delta = e.deltaY || e.wheelDelta || e.detail;
-        this.scroll.target += (delta > 0 ? this.scrollSpeed : -this.scrollSpeed) * 0.2;
-        this.onCheckDebounce();
-    }
+
     onCheck() {
         if (!this.medias || !this.medias[0]) return;
         const width = this.medias[0].width;
@@ -419,7 +414,7 @@ class App {
     update() {
         // Auto-scroll
         if (this.autoScrollInfo.isScrolling && !this.isDown) {
-            this.scroll.target += this.autoScrollInfo.speed * 0.02;
+            this.scroll.target += this.autoScrollInfo.speed * 0.02; // Back to slow speed
         }
 
         this.scroll.current = lerp(this.scroll.current, this.scroll.target, this.scroll.ease);
@@ -454,7 +449,7 @@ class App {
     }
     addEventListeners() {
         this.boundOnResize = this.onResize.bind(this);
-        this.boundOnWheel = this.onWheel.bind(this);
+
         this.boundOnTouchDown = this.onTouchDown.bind(this);
         this.boundOnTouchMove = this.onTouchMove.bind(this);
         this.boundOnTouchUp = this.onTouchUp.bind(this);
@@ -463,19 +458,20 @@ class App {
         this.boundOnMouseEnter = () => { this.autoScrollInfo.isScrolling = false; };
         this.boundOnMouseLeave = () => {
             this.autoScrollInfo.isScrolling = true;
-            if (!this.isDown) this.onCheck(); // Align when leaving
+            // Removed onCheck() to prevent snapping/jumping when leaving
         };
 
         window.addEventListener('resize', this.boundOnResize);
         // Bind to container for wheel/touch/mouse to not block window
-        this.container.addEventListener('mousewheel', this.boundOnWheel);
-        this.container.addEventListener('wheel', this.boundOnWheel);
+
         this.container.addEventListener('mousedown', this.boundOnTouchDown);
         this.container.addEventListener('mousemove', this.boundOnTouchMove);
-        this.container.addEventListener('mouseup', this.boundOnTouchUp);
         this.container.addEventListener('touchstart', this.boundOnTouchDown);
         this.container.addEventListener('touchmove', this.boundOnTouchMove);
-        this.container.addEventListener('touchend', this.boundOnTouchUp);
+
+        // Bind release events to window to prevent stuck drag state
+        window.addEventListener('mouseup', this.boundOnTouchUp);
+        window.addEventListener('touchend', this.boundOnTouchUp);
 
         this.container.addEventListener('mouseenter', this.boundOnMouseEnter);
         this.container.addEventListener('mouseleave', this.boundOnMouseLeave);
@@ -483,15 +479,15 @@ class App {
     destroy() {
         window.cancelAnimationFrame(this.raf);
         window.removeEventListener('resize', this.boundOnResize);
+        window.removeEventListener('mouseup', this.boundOnTouchUp);
+        window.removeEventListener('touchend', this.boundOnTouchUp);
+
         if (!this.container) return;
-        this.container.removeEventListener('mousewheel', this.boundOnWheel);
-        this.container.removeEventListener('wheel', this.boundOnWheel);
+
         this.container.removeEventListener('mousedown', this.boundOnTouchDown);
         this.container.removeEventListener('mousemove', this.boundOnTouchMove);
-        this.container.removeEventListener('mouseup', this.boundOnTouchUp);
         this.container.removeEventListener('touchstart', this.boundOnTouchDown);
         this.container.removeEventListener('touchmove', this.boundOnTouchMove);
-        this.container.removeEventListener('touchend', this.boundOnTouchUp);
         this.container.removeEventListener('mouseenter', this.boundOnMouseEnter);
         this.container.removeEventListener('mouseleave', this.boundOnMouseLeave);
 

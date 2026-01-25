@@ -21,7 +21,8 @@ import {
   ChevronRight,
   MapPin,
   Calendar,
-  ArrowDownCircle
+  ArrowDownCircle,
+  Flag
 } from 'lucide-react';
 import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
 
@@ -32,7 +33,7 @@ import mindMatrix from '../assets/events/mind_matrix_burgundy.png';
 import innoPaperx from '../assets/events/inno_paperx.png';
 import havoc from '../assets/events/havoc_burgundy.png';
 import valorant from '../assets/events/valorant_burgundy.png';
-import LightRays from '../components/LightRays';
+// import LightRays from '../components/LightRays';
 
 const Events = () => {
   const { isDark } = useOutletContext() || { isDark: true };
@@ -71,10 +72,11 @@ Rounds:
 Rules:
 • Individual participation only.
 • Bring your own laptop.
-• No internet allowed.
+• No internet allowed unless instructed.
 • No elimination - all participants play all rounds.
 • Cumulative scoring determines the winner.`,
-      cashPrize: '₹15,000',
+      cashPrize: '₹2,000',
+      prizeBreakdown: '1st: ₹1,200 | 2nd: ₹800',
       coordinators: ['VIMALESH - 88700 41235', 'KALYANI - 9500134746'],
       organizers: [
         'GIRIJA S D', 'G SRAVANTHI', 'J APARNA', 'KONDAPATURI SRICHANDANA', 'MUDI SWETHA',
@@ -106,7 +108,8 @@ Rules:
 • Bring your own laptop.
 • Strict theme adherence.
 • No plagiarism.`,
-      cashPrize: '₹10,000',
+      cashPrize: '₹2,000',
+      prizeBreakdown: '1st: ₹1,200 | 2nd: ₹800',
       coordinators: ['APPARNA R - 7904483789', 'KAMALIKA M - 8115382345', 'KANMANI P - 7397380858'],
       organizers: [
         'DHARMADURAI', 'HASIKA', 'HINDHUJA', 'MYTHREYAN', 'FARHAN TAWFEEQ',
@@ -139,7 +142,8 @@ Rules & Regulations:
 • Pen and paper will be provided
 • Physical activities are light and safe
 • Judges’ decision is final`,
-      cashPrize: '₹12,000',
+      cashPrize: '₹2,000',
+      prizeBreakdown: '1st: ₹1,200 | 2nd: ₹800',
       coordinators: ['EZHUMALAI A - 9384277193', 'SANGEETHA S - 6382025794', 'SHAIK SAMREEN - 7093780449'],
       organizers: [
         'Pavan Shankaran B', 'Sanjeev Raj G', 'Ramya N.C', 'Nagavarapu Mourya',
@@ -178,7 +182,6 @@ Rules & Regulations:
 • Maximum of 10 slides.
 • Presentation must strictly follow timing: 10 mins presentation + 2 mins Q&A.
 • Font style & size must be readable and professional.
-• Abstract submission is mandatory during registration.
 
 Judging Criteria:
 • Originality
@@ -187,7 +190,8 @@ Judging Criteria:
 • Importance of Study
 • Results / Findings
 • Participation of All Team Members`,
-      cashPrize: '₹20,000',
+      cashPrize: '₹2,000',
+      prizeBreakdown: '1st: ₹1,200 | 2nd: ₹800',
       coordinators: ['Ssrutheega G I — 7904558206', 'Ruchita B K — 9025963007'],
       organizers: [
         'Mathinshack Meshack', 'Tharun S', 'Nivetha M', 'Jeeva Kumar', 'Pooja',
@@ -213,7 +217,7 @@ RULES:
 3. Points are awarded based on performance in each selected game.
 4. Scores from both games are combined to calculate the team’s total score.
 5. The team with the highest total score is declared the winner.`,
-      cashPrize: '₹3,000',
+      cashPrize: '₹2,200',
       coordinators: ['Lakshmi Shri K - 7010724907', 'Samiksha S - 9042442709'],
       organizers: [
         'Shruthi', 'Bhunavesh Ravi', 'Chethan', 'Deepak', 'Dhanush', 'Madhav', 'Moghish',
@@ -245,7 +249,7 @@ REQUIREMENTS:
 • Bluetooth devices are not supported on provided systems
 • Players may bring and use their own gaming laptops/setups
 • Dedicated PC setups will also be available at the venue`,
-      cashPrize: '₹2,000',
+      cashPrize: '₹1,500',
       coordinators: ['Kiran S – 9600078487', 'Kiran K – 93474 24055'],
       organizers: [
         'Ganapathy Shree', 'Baradwaj', 'Mithilesh', 'Chandu P.V', 'Meghasyam', 'Sri Nikesh',
@@ -297,32 +301,19 @@ REQUIREMENTS:
       {/* Dynamic Background */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className={`absolute inset-0 transition-colors duration-700 ${isDark ? 'bg-gradient-to-b from-[#3d0f16] via-[#1f0508] to-[#0f0000]' : 'bg-gradient-to-b from-[#ffffff] via-[#f3f4f6] to-[#e5e7eb]'}`} />
-        <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-full h-[800px] blur-[120px] pointer-events-none transition-colors duration-700 ${isDark ? 'bg-gradient-to-b from-[#ff3366]/20 to-transparent mix-blend-screen' : 'bg-gradient-to-b from-rose-200 to-transparent mix-blend-multiply'}`} />
-
-        {/* LightRays - Red for Dark, Standard for Light */}
-        <div className="absolute inset-0 z-[1] opacity-100 mix-blend-plus-lighter">
-          <LightRays
-            raysColor={isDark ? "#ff0000" : "#ff99aa"}
-            raysSpeed={0.2}
-            lightSpread={2.0}
-            rayLength={0.9}
-            mouseInfluence={0.5}
-            noiseAmount={0.04}
-          />
-        </div>
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-[2]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} />
+        <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-full h-[800px] blur-[30px] pointer-events-none transition-colors duration-700 ${isDark ? 'bg-gradient-to-b from-[#ff3366]/20 to-transparent mix-blend-screen' : 'bg-gradient-to-b from-rose-200 to-transparent mix-blend-multiply'}`} />
       </div>
 
       {/* Hero Section - Text Reveal Animation */}
-      <header className="relative pt-48 pb-24 px-6 text-center z-10 min-h-[80vh] flex flex-col items-center justify-center">
+      <header className="relative pt-32 pb-12 px-6 text-center z-10 min-h-[50vh] flex flex-col items-center justify-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: "backOut" }}
-          className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-8 backdrop-blur-md ${isDark ? 'border-rose-400/30 bg-rose-900/30 shadow-[0_0_20px_rgba(225,29,72,0.2)]' : 'border-rose-200 bg-white/50 shadow-sm'}`}
+          className={`inline-flex items-center gap-2 px-4 py-2 rounded-full border mb-8 ${isDark ? 'border-rose-400/30 bg-rose-900/80 shadow-[0_0_20px_rgba(225,29,72,0.2)]' : 'border-rose-200 bg-white/90 shadow-sm'}`}
         >
-          <Sparkles className={`w-4 h-4 ${isDark ? 'text-rose-300' : 'text-rose-600'}`} />
-          <span className={`text-xs font-bold tracking-[0.25em] uppercase ${isDark ? 'text-rose-100' : 'text-rose-900'}`}>National Symposium</span>
+          <Flag className={`w-4 h-4 ${isDark ? 'text-rose-300' : 'text-rose-600'}`} />
+          <span className={`text-xs font-bold tracking-[0.25em] uppercase ${isDark ? 'text-rose-100' : 'text-rose-900'}`}>National Level Symposium</span>
         </motion.div>
 
         <motion.h1
@@ -382,8 +373,8 @@ REQUIREMENTS:
           >
             <div className="w-2 h-12 bg-rose-500 rounded-full shadow-[0_0_20px_#e11d48]" />
             <div>
-              <h2 className="text-4xl font-black text-white tracking-[0.05em] uppercase">Technical Domain</h2>
-              <p className="text-rose-200/60 text-sm font-bold tracking-widest mt-1">CODE • INNOVATE • CONQUER</p>
+              <h2 className={`text-4xl font-black tracking-[0.05em] uppercase ${isDark ? 'text-white' : 'text-rose-950'}`}>Technical Domain</h2>
+              <p className={`text-sm font-bold tracking-widest mt-1 ${isDark ? 'text-rose-200/60' : 'text-rose-700/80'}`}>CODE • INNOVATE • CONQUER</p>
             </div>
           </motion.div>
 
@@ -404,8 +395,8 @@ REQUIREMENTS:
             className="flex items-center gap-4 mb-12 justify-end text-right"
           >
             <div>
-              <h2 className="text-4xl font-black text-white tracking-[0.05em] uppercase">Non-Technical Domain</h2>
-              <p className="text-rose-200/60 text-sm font-bold tracking-widest mt-1">STRATEGY • SKILL • GLORY</p>
+              <h2 className={`text-4xl font-black tracking-[0.05em] uppercase ${isDark ? 'text-white' : 'text-rose-950'}`}>Non-Technical Domain</h2>
+              <p className={`text-sm font-bold tracking-widest mt-1 ${isDark ? 'text-rose-200/60' : 'text-rose-700/80'}`}>STRATEGY • SKILL • GLORY</p>
             </div>
             <div className="w-2 h-12 bg-white rounded-full shadow-[0_0_20px_#ffffff]" />
           </motion.div>
@@ -432,6 +423,13 @@ REQUIREMENTS:
             onClick={() => setSelectedEvent(null)}
           />
 
+          <button
+            onClick={() => setSelectedEvent(null)}
+            className="fixed top-6 right-6 z-[100] p-3 bg-rose-600 hover:bg-rose-700 border border-rose-400/50 rounded-full text-white shadow-[0_0_20px_rgba(225,29,72,0.6)] transition-all hover:rotate-90 hover:scale-110"
+          >
+            <X className="w-8 h-8" />
+          </button>
+
           <motion.div
             layoutId={selectedEvent.id}
             initial={{ scale: 0.8, opacity: 0, y: 50 }}
@@ -440,12 +438,7 @@ REQUIREMENTS:
             transition={{ type: "spring", stiffness: 200, damping: 20 }}
             className="relative w-full max-w-6xl h-[90vh] md:h-[800px] bg-[#1a0508] rounded-3xl overflow-hidden shadow-2xl border border-white/10 flex flex-col md:flex-row z-50"
           >
-            <button
-              onClick={() => setSelectedEvent(null)}
-              className="absolute top-6 right-6 z-50 p-3 bg-black/40 hover:bg-white/10 border border-white/10 rounded-full text-white transition-all hover:rotate-90"
-            >
-              <X className="w-5 h-5" />
-            </button>
+
 
             {/* Left Image Side */}
             <div className="w-full md:w-[45%] relative bg-black overflow-hidden group">
@@ -456,7 +449,7 @@ REQUIREMENTS:
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#1a0508] via-transparent to-transparent opacity-80" />
 
-              <div className="absolute bottom-10 left-10 right-10">
+              <div className="absolute bottom-20 left-10 right-10">
                 <h2 className="text-5xl font-black text-white uppercase leading-none drop-shadow-lg mb-2">{selectedEvent.title}</h2>
                 <p className="text-xl text-rose-200/80 font-display tracking-wider mb-6 italic">{selectedEvent.shortDesc}</p>
                 <div className="flex items-center gap-2 text-rose-400 font-bold uppercase tracking-widest text-sm">
@@ -479,7 +472,7 @@ REQUIREMENTS:
                     <div className="flex items-center gap-2 text-rose-300 text-xs font-bold uppercase tracking-wider mb-1">
                       <Trophy className="w-4 h-4" /> Prize Pool
                     </div>
-                    <div className="text-2xl font-bold text-white">{selectedEvent.cashPrize}</div>
+                    <div className="text-2xl font-bold text-white">{selectedEvent.prizeBreakdown || selectedEvent.cashPrize}</div>
                   </div>
                   <div className="bg-white/5 p-4 rounded-xl border border-white/5">
                     <div className="flex items-center gap-2 text-rose-300 text-xs font-bold uppercase tracking-wider mb-1">
@@ -538,6 +531,8 @@ REQUIREMENTS:
                 </a>
               </div>
             </div>
+
+
           </motion.div>
         </div>
       )}
@@ -559,12 +554,14 @@ const AnimatedEventCard = ({ event, index, onClick, isWide = false }) => {
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: index * 0.1, type: "spring", stiffness: 50 }}
       whileHover={{ scale: 1.02 }}
-      className={`group relative ${isWide ? 'h-[350px]' : 'h-[450px]'} bg-[#120205] rounded-2xl overflow-hidden cursor-pointer shadow-xl hover:shadow-[0_0_40px_rgba(225,29,72,0.3)] transition-all border border-white/5 hover:border-rose-500/50`}
+      className={`group relative ${isWide ? 'h-[350px]' : 'h-[450px]'} bg-[#120205] rounded-2xl overflow-hidden cursor-pointer shadow-xl hover:shadow-[0_0_40px_rgba(225,29,72,0.3)] transition-all border border-white/5 hover:border-rose-500/50 will-change-transform`}
     >
       <div className="absolute inset-0">
         <img
           src={event.image}
           alt={event.title}
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#150305] via-transparent to-transparent opacity-90" />

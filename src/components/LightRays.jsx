@@ -94,7 +94,7 @@ const LightRays = ({
             if (!containerRef.current) return;
 
             const renderer = new Renderer({
-                dpr: Math.min(window.devicePixelRatio, 2),
+                dpr: 1,
                 alpha: true
             });
             rendererRef.current = renderer;
@@ -242,7 +242,7 @@ void main() {
             const updatePlacement = () => {
                 if (!containerRef.current || !renderer) return;
 
-                renderer.dpr = Math.min(window.devicePixelRatio, 2);
+                renderer.dpr = 1;
 
                 const { clientWidth: wCSS, clientHeight: hCSS } = containerRef.current;
                 renderer.setSize(wCSS, hCSS);
@@ -325,21 +325,7 @@ void main() {
                 cleanupFunctionRef.current = null;
             }
         };
-    }, [
-        isVisible,
-        raysOrigin,
-        raysColor,
-        raysSpeed,
-        lightSpread,
-        rayLength,
-        pulsating,
-        fadeDistance,
-        saturation,
-        followMouse,
-        mouseInfluence,
-        noiseAmount,
-        distortion
-    ]);
+    }, [isVisible]); // Only re-init if visibility changes. Props are handled by the separate useEffect below.
 
     useEffect(() => {
         if (!uniformsRef.current || !containerRef.current || !rendererRef.current) return;
